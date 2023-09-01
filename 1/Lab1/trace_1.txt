@@ -1,0 +1,9 @@
+5
+Insert: 1,1
+Insert: 2,2
+Insert: 3,3
+Insert: 4,4
+Get: 4
+Get: 3
+Get: 2
+Get: 1

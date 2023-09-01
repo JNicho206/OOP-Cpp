@@ -1,0 +1,20 @@
+5
+Insert: 1,1
+Insert: 1,11
+Insert: 2,2
+Insert: 2,22
+Insert: 3,3
+Insert: 3,33
+Insert: 4,4
+Insert: 4,44
+Get: 4
+Get: 3
+Get: 2
+Get: 1
+Get: 100
+Get: 101
+Get: 102
+Remove: 1
+Remove: 2
+Get: 1
+Get: 2

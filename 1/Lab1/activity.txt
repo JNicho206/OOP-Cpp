@@ -1,0 +1,16 @@
+insert method:
+    * What things must you as a programmer guarantee will be true?
+        - Item is actually inside the list.
+        - Size is increased by one if the key was not already there
+        - The insertion did not affect the rest of the nodes
+
+    * What input states do you nneed to be careful with?
+        - Key that already exists
+        - Empty list insertion
+
+    * What is a normal scenario to test
+        - List has 1+ items where the key is not already in the list
+
+    * What is a boundary condition?
+        - Empty list
+        - Key already exists
