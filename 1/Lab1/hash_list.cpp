@@ -145,15 +145,22 @@ hash_list::~hash_list()
  * START Part 2
  *------------------------------------------------------------------------------------*/
 
-hash_list::hash_list(const hash_list &other)
+hash_list::hash_list(const hash_list &other) : head(nullptr), size(0)
 {
     //Copy constructor
 
     //Object is not initialized yet so don't have to free anything
 
-    //Just need to allocate appropriate memory based on (other)
+    node* curr = other.head;
 
-    //And fill with values
+    while (curr != nullptr)
+    {
+        insert(curr->key, curr->value);
+        curr = curr->next;
+    }
+
+    
+    
 }
 
 hash_list &hash_list::operator=(const hash_list &other) 
@@ -161,11 +168,22 @@ hash_list &hash_list::operator=(const hash_list &other)
     //Overloaded assignment operator
 
     //Handle self assignment 
+    if (this == &other)
+    {
+        return *this;
+    }
 
-    //Must free all memory associated with (this)
+    //Invoke copy constructor to allocate memory and copy values
+    hash_list temp(other);
 
-    //Then allocate appropriate amount of memory and fill with values of (other)
-    return *this; 
+    //Swap pointers
+    std::swap(head, temp.head);
+    //Now the temporary list points to the original list (the one to be deallocated)
+    
+    return *this;
+
+    //temp goes out of scope, the destructor is called and the memory is freed.
+
 }
 
 void hash_list::reset_iter()
