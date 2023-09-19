@@ -150,6 +150,7 @@ hash_list::hash_list(const hash_list &other) : head(nullptr), size(0)
     //Copy constructor
 
     //Object is not initialized yet so don't have to free anything
+    
 
     node* curr = other.head;
 
@@ -166,7 +167,7 @@ hash_list::hash_list(const hash_list &other) : head(nullptr), size(0)
 hash_list &hash_list::operator=(const hash_list &other) 
 {
     //Overloaded assignment operator
-
+    
     //Handle self assignment 
     if (this == &other)
     {
