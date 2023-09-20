@@ -83,6 +83,8 @@ public:
      */
     size_t get_capacity() const;
 
+    hash_list* get_head() const;
+
     /**
      * @brief Copies all the keys from the hash_map into the specified array
      *

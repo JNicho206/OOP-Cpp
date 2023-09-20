@@ -77,6 +77,8 @@ public:
      */
     bool remove(int key);
 
+    node* get_head() const;
+
     /**
      * @brief Return the number of nodes in the list. 
      * This function must run in constant time
@@ -155,6 +157,13 @@ public:
     /**-----------------------------------------------------------------------------------
      * END Part 2
      *------------------------------------------------------------------------------------*/
+
+    /**
+     * @brief Populates passed array with all the keys
+     * 
+     * @param keys 
+     */
+    void get_all_keys(int* keys);
 
 private:
 

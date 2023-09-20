@@ -83,6 +83,11 @@ std::optional<float> hash_list::get_value(int key) const
     }
 }
 
+node* hash_list::get_head() const 
+{
+    return this->head;
+}
+
 bool hash_list::remove(int key) 
 { 
     if (this->isEmpty())
@@ -145,11 +150,16 @@ hash_list::~hash_list()
  * START Part 2
  *------------------------------------------------------------------------------------*/
 
-hash_list::hash_list(const hash_list &other) : head(nullptr), size(0)
+hash_list::hash_list(const hash_list &other) : size(0), head(nullptr)
 {
     //Copy constructor
 
     //Object is not initialized yet so don't have to free anything
+
+    if (other.isEmpty())
+    {
+        return;
+    }
 
     node* curr = other.head;
 
