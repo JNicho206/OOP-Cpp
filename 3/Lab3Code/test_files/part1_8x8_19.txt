@@ -1,0 +1,20 @@
+0
+8 8
+w p 5 0
+w r 2 4
+w b 2 6
+b p 5 3
+w r 4 3
+b b 6 6
+b r 7 6
+b p 7 0
+b r 0 3
+b b 7 6
+w p 4 5
+b b 0 6
+b p 1 5
+w r 3 4
+b r 3 7
+b p 7 2
+~
+isValidScan

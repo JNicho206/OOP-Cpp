@@ -1,0 +1,61 @@
+0
+6 6
+b b 3 0
+w b 0 2
+w b 4 2
+b r 5 3
+w r 2 4
+b b 5 5
+~
+isValidScan
+underThreatScan
+movePiece 4 2 3 3
+movePiece 3 0 0 3
+movePiece 2 4 2 3
+movePiece 0 3 1 2
+movePiece 1 4 2 3
+isValidScan
+underThreatScan
+movePiece 2 3 2 5
+movePiece 5 3 5 2
+movePiece 3 3 4 2
+movePiece 5 5 2 2
+movePiece 4 4 3 4
+isValidScan
+underThreatScan
+movePiece 0 2 3 5
+movePiece 5 2 4 2
+movePiece 2 5 2 2
+movePiece 1 2 4 5
+movePiece 1 5 0 3
+isValidScan
+underThreatScan
+movePiece 3 5 2 4
+movePiece 4 2 2 2
+movePiece 2 4 1 3
+movePiece 2 2 2 1
+movePiece 3 4 1 0
+isValidScan
+underThreatScan
+movePiece 1 3 3 1
+movePiece 4 5 2 3
+movePiece 3 1 2 0
+movePiece 2 3 3 2
+movePiece 3 2 2 2
+isValidScan
+underThreatScan
+movePiece 2 0 1 1
+movePiece 3 2 1 4
+movePiece 1 1 0 2
+movePiece 2 1 2 4
+movePiece 3 3 1 0
+isValidScan
+underThreatScan
+movePiece 0 2 1 3
+movePiece 2 4 4 4
+movePiece 1 3 4 0
+movePiece 1 4 0 5
+movePiece 0 2 4 4
+isValidScan
+underThreatScan
+movePiece 4 0 5 1

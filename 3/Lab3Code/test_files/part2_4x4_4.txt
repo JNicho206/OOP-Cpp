@@ -1,0 +1,18 @@
+0
+4 4
+b p 0 0
+w p 0 3
+b p 3 0
+b r 0 3
+~
+isValidScan
+underThreatScan
+movePiece 0 1 2 2
+isValidScan
+underThreatScan
+movePiece 3 3 3 2
+isValidScan
+underThreatScan
+movePiece 1 0 0 3
+isValidScan
+underThreatScan

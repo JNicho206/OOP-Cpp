@@ -1,0 +1,106 @@
+0
+8 8
+w p 4 5
+w r 3 3
+b p 5 5
+b r 2 5
+b p 2 5
+w r 7 5
+w p 0 4
+w b 5 3
+~
+isValidScan
+underThreatScan
+movePiece 5 3 4 4
+isValidScan
+movePiece 2 5 3 5
+isValidScan
+movePiece 4 4 6 2
+isValidScan
+movePiece 5 5 6 5
+isValidScan
+movePiece 4 7 0 6
+isValidScan
+underThreatScan
+movePiece 3 3 2 3
+isValidScan
+isValidScan
+isValidScan
+isValidScan
+movePiece 5 0 5 3
+isValidScan
+underThreatScan
+isValidScan
+isValidScan
+isValidScan
+isValidScan
+movePiece 6 6 4 3
+isValidScan
+underThreatScan
+isValidScan
+isValidScan
+isValidScan
+isValidScan
+movePiece 0 6 3 7
+isValidScan
+underThreatScan
+isValidScan
+isValidScan
+isValidScan
+isValidScan
+movePiece 6 4 3 5
+isValidScan
+underThreatScan
+isValidScan
+isValidScan
+isValidScan
+isValidScan
+movePiece 3 2 5 2
+isValidScan
+underThreatScan
+isValidScan
+isValidScan
+isValidScan
+isValidScan
+movePiece 4 0 6 1
+isValidScan
+underThreatScan
+isValidScan
+isValidScan
+isValidScan
+isValidScan
+movePiece 2 6 0 2
+isValidScan
+underThreatScan
+isValidScan
+isValidScan
+isValidScan
+isValidScan
+movePiece 7 2 4 4
+isValidScan
+underThreatScan
+isValidScan
+isValidScan
+isValidScan
+isValidScan
+movePiece 7 7 7 2
+isValidScan
+underThreatScan
+isValidScan
+isValidScan
+isValidScan
+isValidScan
+movePiece 5 3 3 4
+isValidScan
+underThreatScan
+isValidScan
+isValidScan
+isValidScan
+isValidScan
+movePiece 0 5 3 2
+isValidScan
+underThreatScan
+isValidScan
+isValidScan
+isValidScan
+isValidScan
