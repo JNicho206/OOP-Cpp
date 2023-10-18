@@ -30,6 +30,14 @@ ChessBoard::~ChessBoard()
 //PART 1
 void ChessBoard::createChessPiece(Color color, Type ty, int startRow, int startColumn)
 {
+    if (startRow < 0 || startRow >= numRows || startColumn < 0 || startColumn >= numCols) 
+    { 
+        #ifdef DEBUG
+        perror("\nPosition not on board when creating chess piece.\n")
+        #endif
+        return;
+    }
+    
     //Remove any existing piece first before adding the new piece.
     if (board.at(startRow).at(startColumn) != nullptr)
     {
@@ -61,7 +69,8 @@ void ChessBoard::createChessPiece(Color color, Type ty, int startRow, int startC
 //PART 1
 bool ChessBoard::isValidMove(int fromRow, int fromColumn, int toRow, int toColumn)
 {
-    if (board.at(fromRow).at(fromColumn) == nullptr) return false;
+    if (board.at(fromRow).at(fromColumn)->getColor() != turn) {return false;}
+    if (board.at(fromRow).at(fromColumn) == nullptr) {return false;}
     if (board.at(fromRow).at(fromColumn)->canMoveToLocation(toRow, toColumn))
     {
         return true;

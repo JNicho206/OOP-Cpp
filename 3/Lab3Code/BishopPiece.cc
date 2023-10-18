@@ -43,5 +43,12 @@ bool BishopPiece::canMoveToLocation(int row, int column)
 
 const char* BishopPiece::toString()
 {
-    return "P";
+    if (getColor() == White)
+    {
+        return "\u2657";
+    }
+    else 
+    {
+        return "\u265D";
+    }
 }
