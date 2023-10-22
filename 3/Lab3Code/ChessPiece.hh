@@ -2,12 +2,11 @@
 #define _CHESSPIECE_H__
 
 #include "Chess.h"
-#include "ChessBoard.hh"
+
 
 namespace Student
 {
   class ChessBoard;
-
   class ChessPiece
   {
   public:
@@ -101,9 +100,11 @@ namespace Student
   protected:
     ChessBoard &board;
     Color color;
+    Type type;
     int row;
     int column;
   };
 }
 
+#include "ChessBoard.hh"
 #endif

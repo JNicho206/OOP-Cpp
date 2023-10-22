@@ -3,6 +3,7 @@
 
 #include "ChessPiece.hh"
 #include "KingPiece.hh"
+#include "Chess.h"
 #include <list>
 #include <vector>
 #include <sstream>
@@ -120,6 +121,8 @@ namespace Student
          */
         bool isPieceUnderThreat(int row, int column);
 
+        Color colorAt(int row, int column);
+
         /**
          * @brief
          * Returns an output string stream displaying the layout of the board.
@@ -129,7 +132,10 @@ namespace Student
          * An output stream containing the full board layout.
          */
         std::ostringstream displayBoard();
+        
+        ~ChessBoard();
     };
+
 }
 
 #endif

@@ -10,3 +10,6 @@ custom_tests:
 valgrind:
 	valgrind --leak-check=full ./$(APP) $(TEST)
 
+clean:
+	rm -f $(APP)
+

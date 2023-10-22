@@ -5,7 +5,7 @@ using namespace Student;
 
 RookPiece::RookPiece(ChessBoard &board, Color color, int row, int column) : ChessPiece(board, color, row, column)
 {
-
+    type = Rook;
 }
 
 bool RookPiece::canMoveToLocation(int row, int column)
@@ -17,7 +17,7 @@ bool RookPiece::canMoveToLocation(int row, int column)
     if (isMoveToSameSpot(row, column)) return false;
 
     //Check if there is a piece of the same color in the way
-    if (isMoveToSameSpot(row, column)) return false;
+    if (isMoveToSameColor(row, column)) return false;
 
     
     //Color doesn't matter for this, only starting spot and destination

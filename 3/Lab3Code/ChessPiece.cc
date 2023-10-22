@@ -8,6 +8,11 @@ ChessPiece::ChessPiece(ChessBoard &board, Color color, int row, int column)
 
 }
 
+Type ChessPiece::getType()
+{
+    return type;
+}
+
 Color ChessPiece::getColor()
 {
     return color;
@@ -30,12 +35,12 @@ bool ChessPiece::isMoveOnBoard(int row, int column)
 
 bool ChessPiece::isMoveToSameSpot(int row, int column)
 {
-    return row == this->getRow() && column == this->getColumn();
+    return (row == this->getRow()) && (column == this->getColumn());
 }
 
 bool ChessPiece::isMoveToSameColor(int row, int column)
 {
-    return board.getPiece(row, column) != nullptr && board.getPiece(row, column)->getColor() == this->getColor();
+    return (board.getPiece(row, column) != nullptr) && (board.getPiece(row, column)->getColor() == this->getColor());
 }
 
 void ChessPiece::setPosition(int row, int column)

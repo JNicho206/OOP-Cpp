@@ -25,6 +25,14 @@ ChessBoard::~ChessBoard()
             }
         }
     }
+
+    // Clear the elements of the board vector
+    for (int row = 0; row < numRows; row++) {
+        board.at(row).clear();
+    }
+
+    // Clear the board vector itself
+    board.clear();
 }
 
 //PART 1
@@ -42,6 +50,7 @@ void ChessBoard::createChessPiece(Color color, Type ty, int startRow, int startC
     if (board.at(startRow).at(startColumn) != nullptr)
     {
         delete board.at(startRow).at(startColumn);
+        board.at(startRow).at(startColumn) = nullptr;
     }
 
     //Create new piece
@@ -69,13 +78,9 @@ void ChessBoard::createChessPiece(Color color, Type ty, int startRow, int startC
 //PART 1
 bool ChessBoard::isValidMove(int fromRow, int fromColumn, int toRow, int toColumn)
 {
-    if (board.at(fromRow).at(fromColumn)->getColor() != turn) {return false;}
     if (board.at(fromRow).at(fromColumn) == nullptr) {return false;}
-    if (board.at(fromRow).at(fromColumn)->canMoveToLocation(toRow, toColumn))
-    {
-        return true;
-    }
-    return false;
+
+    return (board.at(fromRow).at(fromColumn)->canMoveToLocation(toRow, toColumn));
 }
 
 //PART 2+
@@ -102,6 +107,7 @@ bool ChessBoard::movePiece(int fromRow, int fromColumn, int toRow, int toColumn)
 
     board.at(toRow).at(toColumn) = piece;
     board.at(fromRow).at(fromColumn) = nullptr;
+    return true;
 }
 
 
