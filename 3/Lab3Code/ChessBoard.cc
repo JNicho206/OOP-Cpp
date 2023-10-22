@@ -25,14 +25,6 @@ ChessBoard::~ChessBoard()
             }
         }
     }
-
-    // Clear the elements of the board vector
-    for (int row = 0; row < numRows; row++) {
-        board.at(row).clear();
-    }
-
-    // Clear the board vector itself
-    board.clear();
 }
 
 //PART 1
@@ -86,27 +78,51 @@ bool ChessBoard::isValidMove(int fromRow, int fromColumn, int toRow, int toColum
 //PART 2+
 bool ChessBoard::isPieceUnderThreat(int row, int column)
 {
+    if (board.at(row).at(column) == nullptr) return false;
+    for (int r = 0; r < getNumRows(); r++)
+    {
+        for (int c = 0; c < getNumCols(); c++)
+        {
+            if (isValidMove(r,c,row,column))
+            {
+                return true;
+            }
+        }
+    }
     return false;
 }
 
 //PART 2+
 bool ChessBoard::movePiece(int fromRow, int fromColumn, int toRow, int toColumn)
 {
-    //Check if move is valid
-    if (isValidMove(fromRow, fromColumn, toRow, toColumn)) return false;
+    if (!isValidMove(fromRow, fromColumn, toRow, toColumn)) return false;
+    if (board.at(fromRow).at(fromColumn)->getColor() != turn) return false;
 
     //Move piece to new location
     
     ChessPiece *piece = board.at(fromRow).at(fromColumn);
+
     //Check if there is a piece to capture
     if (board.at(toRow).at(toColumn) != nullptr)
     {
         //Remove piece from board
         delete board.at(toRow).at(toColumn);
+        board.at(toRow).at(toColumn) = nullptr;
     }
 
+    piece->setPosition(toRow, toColumn);
     board.at(toRow).at(toColumn) = piece;
     board.at(fromRow).at(fromColumn) = nullptr;
+
+    if (turn == White)
+    {
+        turn = Black;
+    }
+    else 
+    {
+        turn = White;
+    }
+
     return true;
 }
 
