@@ -3,6 +3,7 @@
 #include "RookPiece.hh"
 #include "BishopPiece.hh"
 #include "KingPiece.hh"
+#include <vector>
 
 using Student::ChessBoard;
 
@@ -67,12 +68,65 @@ void ChessBoard::createChessPiece(Color color, Type ty, int startRow, int startC
 
 }
 
+ChessBoard::ChessBoard(const ChessBoard &other)
+ : numRows(other.numRows), numCols(other.numCols), turn(other.turn)
+{
+    board = std::vector<std::vector<ChessPiece *>>(numRows, std::vector<ChessPiece *>(numCols, nullptr));
+    //vector<ChessPiece*>
+    for (int row = 0; row < board.size(); row++)
+    {
+        //ChessPiece*
+        for (int col = 0; col < board.at(row).size(); col++)
+        {
+            //Need to overload createChessPiece to take a chesspiece*
+            //Create piece on new board
+            //ChessPiece* p = other.board.at(row).at(col);
+            //if (p != nullptr) 
+            //board.at(row).at(col) = createChessPiece(p.getColor(), p.getType(), row, col);
+        }
+    }
+}
+
+bool ChessBoard::kingsAreSecure()
+{
+    for (int row = 0; row < board.size(); row++)
+    {
+        for (int col = 0; col < board.at(row).size(); col++)
+        {
+            ChessPiece* p = board.at(row).at(col);
+            if (p != nullptr)
+            {
+                if (p->getType() == King) 
+                { 
+                    if (isPieceUnderThreat(row, col))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+bool ChessBoard::kingWouldBeSecure(int fromRow, int fromColumn, int toRow, int toColumn)
+{
+    // Part 3
+    // For this function we know the piece can move to the location
+    // Create a copy of the board, move the piece, and check if the king is in check
+    ChessBoard testBoard(*this);
+    testBoard.movePiece(fromRow, fromColumn, toRow, toColumn);
+    
+    return kingsAreSecure();
+}
+
 //PART 1
 bool ChessBoard::isValidMove(int fromRow, int fromColumn, int toRow, int toColumn)
 {
+    //This is fixed for part 3
     if (board.at(fromRow).at(fromColumn) == nullptr) {return false;}
 
-    return (board.at(fromRow).at(fromColumn)->canMoveToLocation(toRow, toColumn));
+    return (board.at(fromRow).at(fromColumn)->canMoveToLocation(toRow, toColumn) && kingWouldBeSecure(fromRow, fromColumn, toRow, toColumn));
 }
 
 //PART 2+
@@ -86,6 +140,13 @@ bool ChessBoard::isPieceUnderThreat(int row, int column)
             if (isValidMove(r,c,row,column))
             {
                 return true;
+            }
+            // Part 3
+            // isValidMove could return false if the king would be in check
+            // Need to check still if the piece is under threat
+            if (board.at(r).at(c) != nullptr)
+            {
+                if (board.at(r).at(c)->canMoveToLocation(row, column)) { return true; }
             }
         }
     }

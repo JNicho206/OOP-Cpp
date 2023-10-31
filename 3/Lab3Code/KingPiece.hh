@@ -11,6 +11,11 @@ namespace Student
 {
     class KingPiece : public ChessPiece
     {
+        KingPiece(ChessBoard &board, Color color, int row, int column);
+
+        bool canMoveToLocation(int row, int column) override;
+
+        const char* toString() override;
     };
 }
 

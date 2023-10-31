@@ -37,6 +37,8 @@ namespace Student
          */
         ChessBoard(int numRow, int numCol);
 
+        ChessBoard(const ChessBoard &other);
+
         /**
          * @return
          * Number of rows in chess board.
@@ -105,6 +107,20 @@ namespace Student
          * Returns true if move may be executed without accounting for turn.
          */
         bool isValidMove(int fromRow, int fromColumn, int toRow, int toColumn);
+
+        /**
+         * @brief Determines if the king would be safe if the given move was made
+         * 
+         * @param fromRow 
+         * @param fromColumn 
+         * @param toRow 
+         * @param toColumn 
+         * @return true if the king would be secure
+         * @return false if the king would be in check
+         */
+        bool kingWouldBeSecure(int fromRow, int fromColumn, int toRow, int toColumn);
+
+        bool kingsAreSecure();
 
         /**
          * @brief
