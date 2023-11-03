@@ -160,9 +160,57 @@ void test_part2_4x4_1_threatscan()
     return;
 }
 
+void test_part3_4x4_1()
+{
+    // 0
+    // 4 4
+    // w r 3 2
+    // b b 1 3
+    // b r 1 1
+    // w r 2 3
+    // b k 0 0
+    // w k 3 0
+
+
+    // Corresponding code
+    Student::ChessBoard sBoard(4, 4);
+    sBoard.createChessPiece(White, Rook, 3, 2);
+    sBoard.createChessPiece(Black, Bishop, 1, 3);
+    sBoard.createChessPiece(Black, Rook, 1, 1);
+    sBoard.createChessPiece(White, Rook, 2, 3);
+    sBoard.createChessPiece(Black, King, 0, 0);
+    sBoard.createChessPiece(White, King, 3, 0);
+
+    // Calls isValidMove() from every position to every
+    // other position on the chess board for all pieces.
+    sBoard.displayBoard();
+    printf("\n");
+    for (int r = 0; r < 4; r++)
+    {
+        for (int c = 0; c < 4; c++)
+        {
+            if ((sBoard.getPiece(r,c)) != nullptr)
+            {
+                for (int r2 = 0; r2 < 4; r2++)
+                {
+                    for (int c2 = 0; c2 < 4; c2++)
+                    {
+                        if (sBoard.isValidMove(r,c,r2,c2))
+                        {
+                            printf("%s at (%d,%d) can move to (%d,%d)\n", sBoard.getPiece(r,c)->toString(), r, c, r2, c2);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return;
+}
+
 
 int main()
 {
-    test_part1_6x6_2();
+    test_part3_4x4_1();
     return EXIT_SUCCESS;
 }

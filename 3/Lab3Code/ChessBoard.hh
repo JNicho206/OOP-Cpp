@@ -37,8 +37,6 @@ namespace Student
          */
         ChessBoard(int numRow, int numCol);
 
-        ChessBoard(const ChessBoard &other);
-
         /**
          * @return
          * Number of rows in chess board.
@@ -120,7 +118,15 @@ namespace Student
          */
         bool kingWouldBeSecure(int fromRow, int fromColumn, int toRow, int toColumn);
 
-        bool kingsAreSecure();
+        /**
+         * @brief Checks to see if the King of a given color is secure. This is called to make sure
+         * that when a white piece moves the white king is safe and same for black.
+         * 
+         * @param pieceColor 
+         * @return true 
+         * @return false 
+         */
+        bool kingIsSecure(Color pieceColor);
 
         /**
          * @brief

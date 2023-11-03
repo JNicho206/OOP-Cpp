@@ -59,7 +59,7 @@ void ChessBoard::createChessPiece(Color color, Type ty, int startRow, int startC
         board.at(startRow).at(startColumn) = new BishopPiece(*this, color, startRow, startColumn);
         break;
     case King:
-        //board.at(startRow).at(startColumn) = new KingPiece(*this, color, startRow, startColumn);
+        board.at(startRow).at(startColumn) = new KingPiece(*this, color, startRow, startColumn);
         break;
     default:
         break;
@@ -68,56 +68,93 @@ void ChessBoard::createChessPiece(Color color, Type ty, int startRow, int startC
 
 }
 
-ChessBoard::ChessBoard(const ChessBoard &other)
- : numRows(other.numRows), numCols(other.numCols), turn(other.turn)
-{
-    board = std::vector<std::vector<ChessPiece *>>(numRows, std::vector<ChessPiece *>(numCols, nullptr));
-    //vector<ChessPiece*>
-    for (int row = 0; row < board.size(); row++)
-    {
-        //ChessPiece*
-        for (int col = 0; col < board.at(row).size(); col++)
-        {
-            //Need to overload createChessPiece to take a chesspiece*
-            //Create piece on new board
-            //ChessPiece* p = other.board.at(row).at(col);
-            //if (p != nullptr) 
-            //board.at(row).at(col) = createChessPiece(p.getColor(), p.getType(), row, col);
-        }
-    }
-}
 
-bool ChessBoard::kingsAreSecure()
-{
-    for (int row = 0; row < board.size(); row++)
+//Called only by test boards
+bool ChessBoard::kingIsSecure(Color pieceColor)
+{   
+    //Find the king of the correct color
+    ChessPiece* k = nullptr;
+    for (int row = 0; row < getNumRows(); row++)
     {
-        for (int col = 0; col < board.at(row).size(); col++)
+        for (int col = 0; col < getNumCols(); col++)
         {
             ChessPiece* p = board.at(row).at(col);
             if (p != nullptr)
-            {
-                if (p->getType() == King) 
+            {  
+                //If piece is a king
+                if (p->getType() == King && p->getColor() == pieceColor) 
                 { 
-                    if (isPieceUnderThreat(row, col))
-                    {
-                        return true;
-                    }
+                    k = p;
+                    break;
                 }
             }
         }
+        if (k != nullptr)
+        {
+            break;
+        }
     }
-    return false;
+
+    //Check if king is under threat without isPieceUnderThreat()
+    //because that will loop back into here (isPieceUnderThreat->isvalidmove->kingsWouldBeSecure->kingIsSecure->isPieceUnderThreat)
+    for (int row = 0; row < getNumRows(); row++)
+    {
+        for (int col = 0; col < getNumCols(); col++)
+        {
+            //Check if piece can move to the king's spot
+            if (getPiece(row,col) != nullptr && 
+                getPiece(row,col)->canMoveToLocation(k->getRow(), k->getColumn())) 
+            { return false; }
+        }
+    }
+    return true;
+
 }
 
 bool ChessBoard::kingWouldBeSecure(int fromRow, int fromColumn, int toRow, int toColumn)
 {
     // Part 3
     // For this function we know the piece can move to the location
-    // Create a copy of the board, move the piece, and check if the king is in check
-    ChessBoard testBoard(*this);
-    testBoard.movePiece(fromRow, fromColumn, toRow, toColumn);
+    // Create a copy of the board, move the piece, and check if the king (of the color of the piece to move) is in check
+
+    //Create a copy
+    ChessBoard testBoard(numRows, numCols);
+    testBoard.turn = this->turn;
+    //for each row (vector<ChessPiece*>)
+    //Populate the test board based on the main board
+    for (int row = 0; row < getNumRows(); row++)
+    {
+        //for each space in the row (ChessPiece*)
+        for (int col = 0; col < getNumCols(); col++)
+        {
+            //Create piece on new board
+            ChessPiece* p = board.at(row).at(col);
+            if (p != nullptr) 
+            {
+                testBoard.createChessPiece(p->getColor(), p->getType(), row, col);
+            }
+        }
+    }
+
+    //Can't use below line it will keep creating test boards (movePiece->isvalidmove->kingsWouldBeSecure->movePiece->....) 
+    //testBoard.movePiece(fromRow, fromColumn, toRow, toColumn);
+    //We know the piece can move to the location
+
+    //Handle piece existing at the move location on the test board
+    ChessPiece* p = testBoard.getPiece(toRow, toColumn);
+    if (p != nullptr)
+    {
+        delete p;
+        testBoard.board.at(toRow).at(toColumn) = nullptr;
+    }
+    //Move the piece on the test board
+    ChessPiece* piece = testBoard.getPiece(fromRow, fromColumn);
+    piece->setPosition(toRow, toColumn);
+    testBoard.board.at(toRow).at(toColumn) = piece;
+    testBoard.board.at(fromRow).at(fromColumn) = nullptr;
     
-    return kingsAreSecure();
+    //Check if the test board has the king (of the same color as the piece to move) not in check (meaning main board move would be fine)
+    return testBoard.kingIsSecure(piece->getColor());
 }
 
 //PART 1
@@ -142,7 +179,7 @@ bool ChessBoard::isPieceUnderThreat(int row, int column)
                 return true;
             }
             // Part 3
-            // isValidMove could return false if the king would be in check
+            // isValidMove could return false if the king would be in check even though the piece could move
             // Need to check still if the piece is under threat
             if (board.at(r).at(c) != nullptr)
             {
@@ -159,10 +196,6 @@ bool ChessBoard::movePiece(int fromRow, int fromColumn, int toRow, int toColumn)
     if (!isValidMove(fromRow, fromColumn, toRow, toColumn)) return false;
     if (board.at(fromRow).at(fromColumn)->getColor() != turn) return false;
 
-    //Move piece to new location
-    
-    ChessPiece *piece = board.at(fromRow).at(fromColumn);
-
     //Check if there is a piece to capture
     if (board.at(toRow).at(toColumn) != nullptr)
     {
@@ -171,6 +204,8 @@ bool ChessBoard::movePiece(int fromRow, int fromColumn, int toRow, int toColumn)
         board.at(toRow).at(toColumn) = nullptr;
     }
 
+    //Move piece to new location
+    ChessPiece *piece = board.at(fromRow).at(fromColumn);
     piece->setPosition(toRow, toColumn);
     board.at(toRow).at(toColumn) = piece;
     board.at(fromRow).at(fromColumn) = nullptr;
