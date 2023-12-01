@@ -4,13 +4,16 @@
 #include <vector>
 #include <utility>
 #include <cstddef>
+#include <mutex>
 
 using power = size_t;
 using coeff = int;
 
 class polynomial
 {
-
+private:
+    std::vector<std::pair<power, coeff>> terms;
+    mutable std::mutex mtx;
 public:
     /**
      * @brief Construct a new polynomial object that is the number 0 (ie. 0x^0)
@@ -39,6 +42,8 @@ public:
      */
     polynomial(const polynomial &other);
 
+    polynomial(const std::vector<std::pair<power, coeff>>& inputTerms) : terms(inputTerms) {}
+
     /**
      * @brief Prints the polynomial.
      *
@@ -60,14 +65,19 @@ public:
 
     polynomial operator+(int val) const;
 
+    friend polynomial operator+(int val, const polynomial &other);
+
     polynomial operator+(const polynomial &other) const;
 
-    polynomial operator*(int val) const;
+    polynomial operator*(int val) const; 
 
     polynomial operator*(const polynomial &other) const;
 
+    friend polynomial operator*(int val, const polynomial &other);
+
     polynomial operator%(const polynomial &other) const;
 
+    bool isZero() const;
 
     /**
      * Overload the +, * and % operators. The function prototypes are not
@@ -94,7 +104,7 @@ public:
      * @return size_t
      *  The degree of the polynomial
      */
-    size_t find_degree_of();
+    size_t find_degree_of() const;
 
     /**
      * @brief Returns a vector that contains the polynomial is canonical form. This
